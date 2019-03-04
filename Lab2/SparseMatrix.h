@@ -16,12 +16,15 @@ private:
     int *rows;
     int *columns;
 
+    void set_fields(float * *);
+
 public:
+    SparseMatrix();
     SparseMatrix(float * *, int &, int &);
-    float get(int &, int &);
-    SparseMatrix &operator+(SparseMatrix &);
-    SparseMatrix &operator*(SparseMatrix &);
-    explicit operator string();
+    float get(int &, int &) const;
+    SparseMatrix operator+(SparseMatrix &);
+    SparseMatrix operator*(SparseMatrix &);
+    friend ostream &operator<<(ostream &, SparseMatrix &);
     ~SparseMatrix();
 };
 

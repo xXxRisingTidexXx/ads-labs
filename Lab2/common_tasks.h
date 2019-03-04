@@ -1,7 +1,7 @@
 #ifndef LAB2_COMMON_TASK_H
 #define LAB2_COMMON_TASK_H
 
-int *get_int();
+int get_int();
 
 float * *get_matrix(int &, int &);
 

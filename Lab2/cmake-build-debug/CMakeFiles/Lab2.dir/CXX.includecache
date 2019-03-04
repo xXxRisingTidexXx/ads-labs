@@ -6,14 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/risingtide/Documents/ADSLabs/Lab2/SparseMatrix.cpp
-iostream
--
-SparseMatrix.h
-/home/risingtide/Documents/ADSLabs/Lab2/SparseMatrix.h
-common_tasks.h
-/home/risingtide/Documents/ADSLabs/Lab2/common_tasks.h
-
 /home/risingtide/Documents/ADSLabs/Lab2/SparseMatrix.h
 cstdlib
 -
@@ -22,13 +14,19 @@ cstdio
 string
 -
 
+/home/risingtide/Documents/ADSLabs/Lab2/common_tasks.cpp
+iostream
+-
+cstdio
+-
+common_tasks.h
+/home/risingtide/Documents/ADSLabs/Lab2/common_tasks.h
+
 /home/risingtide/Documents/ADSLabs/Lab2/common_tasks.h
 
 /home/risingtide/Documents/ADSLabs/Lab2/main.cpp
 iostream
 -
-common_tasks.h
-/home/risingtide/Documents/ADSLabs/Lab2/common_tasks.h
 SparseMatrix.h
 /home/risingtide/Documents/ADSLabs/Lab2/SparseMatrix.h
 

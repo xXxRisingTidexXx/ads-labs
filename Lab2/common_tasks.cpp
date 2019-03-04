@@ -4,11 +4,11 @@
 
 using namespace std;
 
-int *get_int() {
-    static int n;
+int get_int() {
+    int n;
     cout << "Enter int: ";
     cin >> n;
-    return &n;
+    return n;
 }
 
 float * *get_matrix(int &m, int &n) {

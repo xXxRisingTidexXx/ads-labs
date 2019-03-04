@@ -9,6 +9,5 @@ CMakeFiles/Lab2.dir/common_tasks.cpp.o: ../common_tasks.cpp
 CMakeFiles/Lab2.dir/common_tasks.cpp.o: ../common_tasks.h
 
 CMakeFiles/Lab2.dir/main.cpp.o: ../SparseMatrix.h
-CMakeFiles/Lab2.dir/main.cpp.o: ../common_tasks.h
 CMakeFiles/Lab2.dir/main.cpp.o: ../main.cpp
 

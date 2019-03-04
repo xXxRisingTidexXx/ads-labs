@@ -1,15 +1,14 @@
 #include <iostream>
-#include "common_tasks.h"
 #include "SparseMatrix.h"
 
 using namespace std;
 
 int main() {
-    int m = *get_int();
-    int n = *get_int();
-    float * *matrix1 = get_matrix(m, n);
-    SparseMatrix sparse_matrix1 = SparseMatrix(matrix1, m, n);
-    cout << string(sparse_matrix1);
-    delete_matrix(matrix1, m);
+    SparseMatrix sm1;
+    SparseMatrix sm2;
+    cout << "\nsm1:\n" << sm1 << "\nsm2:\n" << sm2;
+    SparseMatrix sm3 = sm1 + sm2;
+    SparseMatrix sm4 = sm1 * sm2;
+    cout << "\nsm3:\n" << sm3 << "\nsm4:\n" << sm4;
     return 0;
 }
