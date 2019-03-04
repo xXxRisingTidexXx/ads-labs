@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Lab2.dir/main.cpp.o CMakeFiles/Lab2.dir/common_tasks.cpp.o CMakeFiles/Lab2.dir/SparseMatrix.cpp.o  -o Lab2 
