@@ -43,10 +43,27 @@ SparseMatrix::SparseMatrix() {
     delete_matrix(matrix, m);
 }
 
+SparseMatrix::SparseMatrix(int &_m, int &_n) {
+    m = _m;
+    n = _n;
+    auto * *matrix = get_matrix(m, n);
+    set_fields(matrix);
+    delete_matrix(matrix, m);
+}
+
 SparseMatrix::SparseMatrix(float * *_matrix, int &_m, int &_n) {
     m = _m;
     n = _n;
     set_fields(_matrix);
+}
+
+SparseMatrix::SparseMatrix(int &_m, int &_n, int &_nonnull, float *_elements, int *_rows, int *_columns) {
+    m = _m;
+    n = _n;
+    nonnull = _nonnull;
+    elements = _elements;
+    rows = _rows;
+    columns = _columns;
 }
 
 float SparseMatrix::get(int &i, int &j) const {

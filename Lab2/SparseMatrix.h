@@ -20,7 +20,9 @@ private:
 
 public:
     SparseMatrix();
+    SparseMatrix(int &, int&);
     SparseMatrix(float * *, int &, int &);
+    SparseMatrix(int &, int &, int &, float *, int *, int *);
     float get(int &, int &) const;
     SparseMatrix operator+(SparseMatrix &);
     SparseMatrix operator*(SparseMatrix &);
