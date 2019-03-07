@@ -1,6 +1,7 @@
 #ifndef LAB3_LINKEDLIST_H
 #define LAB3_LINKEDLIST_H
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -36,6 +37,10 @@ public:
     void push_back(int);
     int pop_back();
     bool is_empty();
+    Node *begin();
+    Node *end();
+    int remove(Node *);
+    friend ostream &operator<<(ostream &, LinkedList &);
     ~LinkedList();
 };
 

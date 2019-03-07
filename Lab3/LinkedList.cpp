@@ -111,6 +111,41 @@ bool LL::is_empty() {
     return size == 0;
 }
 
+LLN *LL::begin() {
+    return first;
+}
+
+LLN *LL::end() {
+    return (last != nullptr) ? last->get_next() : last;
+}
+
+int LL::remove(LLN *node) {
+    int value = node->get_value();
+    auto *previous = node->get_previous();
+    auto *next = node->get_next();
+    if (previous != nullptr) {
+        previous->set_next(next);
+    } else {
+        first = next;
+    }
+    if (next != nullptr) {
+        next->set_previous(previous);
+    } else {
+        last = previous;
+    }
+    delete node;
+    size--;
+    return value;
+}
+
+ostream &operator<<(ostream &out, LinkedList &linked_list) {
+    for (auto *node = linked_list.begin(); node != linked_list.end(); node = node->get_next()) {
+        out << node->get_value() << " ";
+    }
+    out << endl;
+    return out;
+}
+
 LL::~LinkedList() {
     Node *current = first;
     while (current != nullptr) {
