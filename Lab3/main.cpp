@@ -28,10 +28,10 @@ vector<int> *get_even_positive_numbers(LL* linked_list) {
     auto *nums = new vector<int>();
     auto *node = linked_list->begin();
     while (node != linked_list->end()) {
-        int val = node->get_value();
+        int value = node->get_value();
         auto *current = node;
         node = node->get_next();
-        if (val > 0 && val % 2 == 0) {
+        if (value > 0 && value % 2 == 0) {
             nums->push_back(linked_list->remove(current));
         }
     }
@@ -39,14 +39,13 @@ vector<int> *get_even_positive_numbers(LL* linked_list) {
 }
 
 int partition(vector<int> &nums, int low, int high) {
-    int pivot = nums[high];
-    int i = low - 1;
-    for (int j = low; j < high; j++) {
-        if (nums[j] >= pivot) {
+    int pivot = high, i = low - 1;
+    for (int j = low; j < pivot; j++) {
+        if (nums[j] >= nums[pivot]) {
             swap(nums[++i], nums[j]);
         }
     }
-    swap(nums[++i], nums[high]);
+    swap(nums[++i], nums[pivot]);
     return i;
 }
 
