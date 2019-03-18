@@ -1,46 +1,40 @@
-#ifndef LAB3_LINKEDLIST_H
-#define LAB3_LINKEDLIST_H
+#ifndef LAB4_SINGLYLINKEDLIST_H
+#define LAB4_SINGLYLINKEDLIST_H
 
 #include <iostream>
-#include <vector>
+#include "Parallelogram.h"
 
 using namespace std;
 
 class LinkedList {
-public:
+private:
     class Node {
     private:
-        int value;
+        Parallelogram *value;
         Node *previous;
         Node *next;
 
     public:
-        Node(int &, Node *, Node *);
-        int get_value();
+        Node(Parallelogram *, Node *, Node *);
+        Parallelogram *get_value();
+        void set_value(Parallelogram *);
         Node *get_previous();
         void set_previous(Node *);
         Node *get_next();
         void set_next(Node *);
     };
 
-private:
-    int size;
     Node *first;
     Node *last;
 
+    Node *get_node(float);
+
 public:
     LinkedList();
-    int get_size();
-    int get_front();
-    void push_front(int);
-    int pop_front();
-    int get_back();
-    void push_back(int);
-    int pop_back();
-    bool is_empty();
-    Node *begin();
-    Node *end();
-    int remove(Node *);
+    void push(Parallelogram *value);
+    Parallelogram *get(float);
+    Parallelogram *remove(float);
+    bool empty();
     friend ostream &operator<<(ostream &, LinkedList &);
     ~LinkedList();
 };
