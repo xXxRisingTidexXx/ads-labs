@@ -7,49 +7,86 @@
 using namespace std;
 
 typedef HashTable HT;
+typedef LinkedList LL;
 typedef Parallelogram P;
 
+unsigned int HT::hash(float key) {
+    return hashcode(key) & (capacity - 1);
+}
+
+void HT::extend() {
+    unsigned int old_capacity = capacity;
+    capacity = (capacity <= AUGMENTATION_LIMIT) ? capacity << 1 : AUGMENTATION_LIMIT;
+    auto *new_buckets = new LL[capacity];
+    size = 0;
+    for (int i = 0; i < old_capacity; i++) {
+        auto *values = buckets[i].get_values();
+        for (auto *value: *values) {
+            quick_put(value, new_buckets);
+        }
+        delete values;
+    }
+    delete [] buckets;
+    buckets = new_buckets;
+}
+
+void HT::quick_put(P *value, LL *_buckets) {
+    auto *bucket = _buckets + hash(value->get_perimeter());
+    if (bucket->empty()) {
+        size++;
+    }
+    bucket->push(value);
+}
+
 HT::HashTable(unsigned int _capacity) {
-    buckets = new LinkedList[_capacity];
+    buckets = new LL[_capacity];
     capacity = _capacity;
     size = 0;
 }
 
 P *HT::get(float key) {
-    return (buckets + hashcode(key))->get(key);
+    return buckets[hash(key)].get(key);
 }
 
 void HT::put(P *value) {
-    unsigned int i = hashcode(value->get_perimeter());
     float load = (float) size / capacity;
     if (load > LOAD_FACTOR || equal(load, LOAD_FACTOR)) {
-        auto old_capacity = capacity;
-        capacity = (capacity <= AUGMENTATION_LIMIT) ? capacity << 1 : AUGMENTATION_LIMIT;
-        auto *new_buckets = new LinkedList[capacity];
-        for (int j = 0; j < old_capacity; j++) {
-            *(new_buckets + j) = *(buckets + j);
-        }
-        delete [] buckets;
-        buckets = new_buckets;
+        extend();
     }
-    size++;
-    (buckets + i)->push(value);
+    quick_put(value, buckets);
 }
 
 P *HT::pop(float key) {
-    auto *value = (buckets + hashcode(key))->remove(key);
-    if (value != nullptr) {
+    auto *bucket = buckets + hash(key);
+    auto *value = bucket->remove(key);
+    if (value != nullptr && bucket->empty()) {
         size--;
     }
     return value;
 }
 
-ostream &operator<<(ostream &out, HT &hash_table) {
-    cout << "HashTable {" << endl;
-    for (int i = 0; i < hash_table.capacity; i++) {
-        cout << *(hash_table.buckets + i);
+void HT::filter(float square) {
+    for (int i = 0; i < capacity; i++) {
+        auto *values = (buckets + i)->get_values();
+        for (auto *value: *values) {
+            if (value->get_square() < square) {
+                pop(value->get_perimeter());
+            }
+        }
+        delete values;
     }
-    out << "}" << endl;
+}
+
+ostream &operator<<(ostream &out, HT &hash_table) {
+    out << "HashTable {";
+    for (int i = 0; i < hash_table.capacity; i++) {
+        auto *bucket = hash_table.buckets + i;
+        out << *bucket;
+        if (i != hash_table.capacity - 1 && !bucket->empty()) {
+            out << ", ";
+        }
+    }
+    out << "}";
     return out;
 }
 

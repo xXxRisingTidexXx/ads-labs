@@ -50,6 +50,11 @@ LL::LinkedList() {
     first = last = nullptr;
 }
 
+LL::LinkedList(const LL &obj) {
+    first = nullptr;
+    last = nullptr;
+}
+
 void LL::push(P *value) {
     auto *node = get_node(value->get_perimeter());
     if (node != nullptr) {
@@ -96,6 +101,25 @@ bool LL::empty() {
     return first == nullptr;
 }
 
+vector<P *> *LL::get_values() {
+    auto *parallelograms = new vector<P *>();
+    for (auto *current = first; current != nullptr; current = current->get_next()) {
+        parallelograms->push_back(current->get_value());
+    }
+    return parallelograms;
+}
+
+ostream &operator<<(ostream &out, LL &linked_list) {
+    for (auto *current = linked_list.first; current != nullptr; current = current->get_next()) {
+        auto *value = current->get_value();
+        out << value->get_perimeter() << ": " << *value;
+        if (current->get_next() != nullptr) {
+            out << ", ";
+        }
+    }
+    return out;
+}
+
 LL::~LinkedList() {
     Node *current = first;
     while (current != nullptr) {
@@ -103,12 +127,4 @@ LL::~LinkedList() {
         delete current;
         current = (next != nullptr) ? next : nullptr;
     }
-}
-
-ostream &operator<<(ostream &out, LinkedList &linked_list) {
-    for (auto *current = linked_list.first; current != nullptr; current = current->get_next()) {
-        auto *value = current->get_value();
-        out << value->get_perimeter() << ": " << *value << endl;
-    }
-    return out;
 }

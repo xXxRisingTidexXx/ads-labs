@@ -8,5 +8,5 @@ bool equal(float a, float b) {
 }
 
 unsigned int hashcode(float key) {
-    return ((unsigned int) ceil(key)) % MOD;
+    return ((unsigned int) ceil(key * HASH_FACTOR)) % MOD;
 }

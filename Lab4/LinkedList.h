@@ -31,10 +31,12 @@ private:
 
 public:
     LinkedList();
+    LinkedList(const LinkedList &);
     void push(Parallelogram *value);
     Parallelogram *get(float);
     Parallelogram *remove(float);
     bool empty();
+    vector<Parallelogram *> *get_values();
     friend ostream &operator<<(ostream &, LinkedList &);
     ~LinkedList();
 };

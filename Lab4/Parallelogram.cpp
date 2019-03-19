@@ -44,12 +44,15 @@ float Parallelogram::get_square() {
 }
 
 ostream &operator<<(ostream &out, Parallelogram &parallelogram) {
-    out << "Parallelogram:\n + points:";
-    for (Point point: *parallelogram.points) {
-        out << " (" << point.x << ", " << point.y << ")";
+    out << "Parallelogram (points = [";
+    for (int i = 0; i < 4; i++) {
+        Point p = (*parallelogram.points)[i];
+        out << "(" << p.x << ", " << p.y << ")";
+        if (i != 3) {
+            out << ", ";
+        }
     }
-    out << "\n + perimeter: " << parallelogram.perimeter << endl;
-    out << " + square: " << parallelogram.square << endl;
+    out << "], perimeter = " << parallelogram.perimeter << ", square = " << parallelogram.square << ")";
     return out;
 }
 

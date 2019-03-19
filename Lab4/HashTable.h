@@ -15,11 +15,16 @@ private:
     static constexpr unsigned int AUGMENTATION_LIMIT = 2147483647;
     static constexpr float LOAD_FACTOR = 0.7;
 
+    unsigned int hash(float);
+    void extend();
+    void quick_put(Parallelogram *, LinkedList *);
+
 public:
     explicit HashTable(unsigned int);
     Parallelogram *get(float);
     void put(Parallelogram *);
     Parallelogram *pop(float);
+    void filter(float);
     friend ostream &operator<<(ostream &, HashTable &);
     ~HashTable();
 };
