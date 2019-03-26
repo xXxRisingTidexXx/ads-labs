@@ -37,7 +37,9 @@ BT::Node *BT::Node::get_left() {
 
 void BT::Node::set_left(Node *_left) {
     left = _left;
-    left->set_parent(this);
+    if (left != nullptr) {
+        left->set_parent(this);
+    }
 }
 
 void BT::Node::put_left(S *_value) {
@@ -50,7 +52,9 @@ BT::Node *BT::Node::get_right() {
 
 void BT::Node::set_right(Node *_right) {
     right = _right;
-    right->set_parent(this);
+    if (right != nullptr) {
+        right->set_parent(this);
+    }
 }
 
 void BT::Node::put_right(S *_value) {
@@ -78,9 +82,13 @@ void BT::put(S *value, BT::Node *node) {
 
 BT::Node *BT::get_node(unsigned int key) {
     auto *current = root;
-    unsigned int isic = current->get_value()->get_isic();
+    unsigned int isic = (current == nullptr) ? 0 : current->get_value()->get_isic();
     while (current != nullptr && isic != key) {
-        current = (isic < key) ? current->get_left() : current->get_right();
+        if (key < isic) {
+            current = current->get_left();
+        } else if (key > isic) {
+            current = current->get_right();
+        }
         if (current != nullptr) {
             isic = current->get_value()->get_isic();
         }
@@ -108,6 +116,8 @@ void BT::untie(BT::Node *node) {
             } else {
                 parent->set_right(right);
             }
+        } else {
+            root = right;
         }
     } else {
         left->set_parent(parent);
@@ -117,22 +127,10 @@ void BT::untie(BT::Node *node) {
             } else {
                 parent->set_right(left);
             }
+        } else {
+            root = left;
         }
     }
-}
-
-S *BT::remove(unsigned int key) {
-    auto *node = get_node(key);
-    if (node == nullptr) return nullptr;
-    auto *value = node->get_value();
-    if (node->get_left() != nullptr && node->get_right() != nullptr) {
-        auto *min = get_min(node->get_right());
-        node->set_value(min->get_value());
-        node = min;
-    }
-    untie(node);
-    delete node;
-    return value;
 }
 
 BT::Node *BT::rearrange(queue<BT::Node *> *q) {
@@ -149,31 +147,46 @@ BT::Node *BT::rearrange(queue<BT::Node *> *q) {
     return node;
 }
 
-BinaryTree::BinaryTree(S *value) {
-    root = new Node(value);
+BinaryTree::BinaryTree() {
+    root = nullptr;
 }
 
 void BT::put(S *value) {
-    put(value, root);
-}
-
-S *BT::get(unsigned int key) {
-    auto *node = get_node(key);
-    return (node == nullptr) ? nullptr : node->get_value();
+    if (root == nullptr) {
+        root = new Node(value);
+    } else {
+        put(value, root);
+    }
 }
 
 vector<S *> *BT::get() {
     auto *values = new vector<S *>();
-    queue<Node *> q;
-    q.push(root);
-    while (!q.empty()) {
-        auto *value = rearrange(&q)->get_value();
-        if (value->get_gender() == 'F' && value->get_grade() == 5 &&
-        value->get_address().find("Kyiv") != string::npos) {
-            values->push_back(value);
+    if (root != nullptr) {
+        queue<Node *> q;
+        q.push(root);
+        while (!q.empty()) {
+            auto *value = rearrange(&q)->get_value();
+            if (value->get_gender() == 'F' && value->get_grade() == 5 &&
+                value->get_address().find("Kyiv") != string::npos) {
+                values->push_back(value);
+            }
         }
     }
     return values;
+}
+
+S *BT::remove(unsigned int key) {
+    auto *node = get_node(key);
+    if (node == nullptr) return nullptr;
+    auto *value = node->get_value();
+    if (node->get_left() != nullptr && node->get_right() != nullptr) {
+        auto *min = get_min(node->get_right());
+        node->set_value(min->get_value());
+        node = min;
+    }
+    untie(node);
+    delete node;
+    return value;
 }
 
 void BT::filter() {
@@ -185,18 +198,22 @@ void BT::filter() {
 }
 
 ostream &operator<<(ostream &out, BT &binary_tree) {
-    queue<BT::Node *> q;
-    q.push(binary_tree.root);
-    while (!q.empty()) {
-        out << *binary_tree.rearrange(&q)->get_value() << endl;
+    if (binary_tree.root != nullptr) {
+        queue<BT::Node *> q;
+        q.push(binary_tree.root);
+        while (!q.empty()) {
+            out << *binary_tree.rearrange(&q)->get_value() << endl;
+        }
     }
     return out;
 }
 
 BT::~BinaryTree() {
-    queue<Node *> q;
-    q.push(root);
-    while (!q.empty()) {
-        delete rearrange(&q);
+    if (root != nullptr) {
+        queue<Node *> q;
+        q.push(root);
+        while (!q.empty()) {
+            delete rearrange(&q);
+        }
     }
 }

@@ -37,14 +37,13 @@ private:
     Node *get_node(unsigned int);
     Node *get_min(Node *);
     void untie(Node *);
-    Student *remove(unsigned int);
     Node *rearrange(queue<Node *> *);
 
 public:
-    explicit BinaryTree(Student *);
+    BinaryTree();
     void put(Student *);
-    Student *get(unsigned int);
     vector<Student *> *get();
+    Student *remove(unsigned int);
     void filter();
     friend ostream &operator<<(ostream &, BinaryTree &);
     ~BinaryTree();
