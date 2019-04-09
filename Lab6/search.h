@@ -12,8 +12,8 @@ int binary_search(vector<int> &, int &);
 
 int substring_search(string &, string &);
 
-int kmp_search(string &str, string &img);
+int kmp_search(string &, string &);
 
-int bm_search(string &str, string &img);
+int bm_search(string &, string &);
 
 #endif
