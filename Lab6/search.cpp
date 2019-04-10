@@ -45,10 +45,10 @@ int calculate_shift(string &img, int &i) {
     int shift = 0, j;
     for (j = 1; j < i && img[j] != img[0]; j++);
     if (j < i) {
-        for (int k = j; k < i; k++) {
-            if (img[k] == img[k - j]) {
-                shift++;
-            }
+        int k = j;
+        for (; k < i && img[k] == img[k - j]; k++);
+        if (k == i) {
+            shift = i - j;
         }
     }
     return shift;
