@@ -23,7 +23,7 @@ int main() {
         nums.push_back(rand() % 80);
     }
     output(nums);
-    counting_sort(nums);
+    bubble_sort(nums);
     output(nums);
     return 0;
 }
