@@ -1,6 +1,6 @@
 #include <iostream>
-#include "sort.h"
 #include <vector>
+#include "sort.h"
 #include <cstdlib>
 #include <ctime>
 #include <random>
@@ -16,14 +16,14 @@ void output(vector<int> &nums) {
 
 int main() {
     srand((unsigned) time(nullptr));
-    const int SIZE = 40;
+    const int SIZE = 20;
     vector<int> nums;
     nums.reserve(SIZE);
     for (int i = 0; i < SIZE; i++) {
-        nums.push_back(rand() % 80);
+        nums.push_back(rand() % 80 - 2 * i);
     }
     output(nums);
-    bubble_sort(nums);
+    merge_sort(nums);
     output(nums);
     return 0;
 }
