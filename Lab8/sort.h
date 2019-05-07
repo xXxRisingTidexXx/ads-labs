@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void cocktail_sort(vector<int> &nums);
+void cocktail_sort(vector<int> &);
 
 void shell_sort(vector<int> &);
 

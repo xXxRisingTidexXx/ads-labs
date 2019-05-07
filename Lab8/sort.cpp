@@ -18,6 +18,7 @@ void cocktail_sort(vector<int> &nums) {
             }
         }
         right--;
+        cout << "comparisons: " << comparisons << ", swaps: " << swaps << endl;
         for (int i = right; i > left; i--) {
             comparisons++;
             if (nums[i - 1] > nums[i]) {
@@ -26,6 +27,7 @@ void cocktail_sort(vector<int> &nums) {
             }
         }
         left++;
+        cout << "comparisons: " << comparisons << ", swaps: " << swaps << endl;
     }
     cout << "comparisons: " << comparisons << ", swaps: " << swaps << endl;
 }
@@ -155,7 +157,7 @@ vector<int> *sort(vector<int> *nums) {
     auto *nums2 = divide(nums, mid, nums->size() - mid);
     auto *sorted1 = sort(nums1);
     auto *sorted2 = sort(nums2);
-    auto *merged = merge(*sorted1, *sorted2);
+    auto *merged = simple_merge(*sorted1, *sorted2);
     if (nums1->size() > 1) {
         delete sorted1;
     }
