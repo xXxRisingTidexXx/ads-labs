@@ -4,6 +4,13 @@
 
 using namespace std;
 
+void output(vector<int> &nums) {
+    for (auto num: nums) {
+        cout << num << " ";
+    }
+    cout << endl;
+}
+
 void finish(vector<int> &res, vector<int> &surplus, int &stop) {
     for (int i = stop; i < surplus.size(); i++) {
         res.push_back(surplus[i]);
@@ -75,6 +82,7 @@ vector<int> *natural_merge(vector<int> &nums) {
         split(*res, tapes[0], tapes[1]);
         res->clear();
         merge(tapes[0], tapes[1], *res);
+        output(*res);
         tapes[0].clear();
         tapes[1].clear();
     }
@@ -88,6 +96,7 @@ vector<int> *polyphase_merge(vector<int> &nums1, vector<int> &nums2) {
     temp.reserve(nums1.size() + nums2.size());
     while (!tape1->empty() && !tape2->empty()) {
         merge(*tape1, *tape2, temp);
+        output(temp);
         tape1->clear();
         tape2->clear();
         split(temp, *tape1, *tape2);
